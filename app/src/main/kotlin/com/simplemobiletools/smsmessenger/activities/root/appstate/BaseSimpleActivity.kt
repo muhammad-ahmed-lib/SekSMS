@@ -366,12 +366,12 @@ abstract class BaseRootActivity : AppCompatActivity() {
 
         if (!useTopSearchMenu) {
             searchMenuItem?.actionView?.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)?.apply {
-                applyColorFilter(contrastColor)
+               // applyColorFilter(contrastColor)
             }
 
             searchMenuItem?.actionView?.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)?.apply {
-                setTextColor(contrastColor)
-                setHintTextColor(contrastColor.adjustAlpha(MEDIUM_ALPHA))
+             //   setTextColor(contrastColor)
+             //   setHintTextColor(contrastColor.adjustAlpha(MEDIUM_ALPHA))
                 hint = "${getString(R.string.search)}…"
 
                 if (isQPlus()) {

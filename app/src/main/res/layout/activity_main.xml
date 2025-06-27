@@ -39,14 +39,6 @@
             app:layout_constraintBottom_toBottomOf="@id/menu3DottedBtn"
             app:layout_constraintTop_toTopOf="@id/menu3DottedBtn"
             app:layout_constraintEnd_toStartOf="@+id/menu3DottedBtn"/>
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/menu3DottedBtn"
-            app:layout_constraintBottom_toBottomOf="@id/menu3DottedBtn"
-            app:layout_constraintStart_toEndOf="@id/menuBtn"
-            app:layout_constraintEnd_toStartOf="@id/searchBtn"
-            android:layout_marginHorizontal="@dimen/_10sdp"/>
 
         <com.simplemobiletools.commons.views.MyRecyclerView
             android:layout_width="match_parent"

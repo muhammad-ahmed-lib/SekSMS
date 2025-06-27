@@ -1,48 +1,46 @@
-package com.simplemobiletools.smsmessenger.activities
+package com.simplemobiletools.smsmessenger.presentation.ui.screens
+
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.WindowManager
-import android.widget.Toast
 import com.google.gson.Gson
-import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.helpers.MyContactsContentProvider
+import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
+import com.simplemobiletools.commons.helpers.SimpleContactsHelper
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.models.SimpleContact
 import com.simplemobiletools.smsmessenger.R
+import com.simplemobiletools.smsmessenger.activities.SimpleActivity
+import com.simplemobiletools.smsmessenger.activities.ThreadActivity
 import com.simplemobiletools.smsmessenger.adapters.ContactsAdapter
-import com.simplemobiletools.smsmessenger.databinding.ActivityNewConversationBinding
+import com.simplemobiletools.smsmessenger.databinding.ActivitySearchConversationBinding
 import com.simplemobiletools.smsmessenger.databinding.ItemSuggestedContactBinding
 import com.simplemobiletools.smsmessenger.extensions.getSuggestedContacts
 import com.simplemobiletools.smsmessenger.extensions.getThreadId
 import com.simplemobiletools.smsmessenger.helpers.*
-import com.simplemobiletools.smsmessenger.messaging.isShortCodeWithLetters
 import java.net.URLDecoder
-import java.util.Locale
 
-class NewConversationActivity : SimpleActivity() {
+class SearchConversationActivity : SimpleActivity() {
     private var allContacts = ArrayList<SimpleContact>()
     private var privateContacts = ArrayList<SimpleContact>()
 
-    private val binding by viewBinding(ActivityNewConversationBinding::inflate)
+    private val binding by viewBinding(ActivitySearchConversationBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         title = getString(R.string.new_conversation)
-        updateTextColors(binding.newConversationHolder)
 
-      /*  updateMaterialActivityViews(
-            mainCoordinatorLayout = binding.newConversationCoordinator,
-            nestedView = binding.contactsList,
-            useTransparentNavigation = true,
-            useTopSearchMenu = false
-        )*/
-      //  setupMaterialScrollListener(scrollingView = binding.contactsList, toolbar = binding.newConversationToolbar)
+
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         binding.newConversationAddress.requestFocus()
@@ -55,10 +53,7 @@ class NewConversationActivity : SimpleActivity() {
 
     override fun onResume() {
         super.onResume()
-        setupToolbar(binding.newConversationToolbar, NavigationIcon.Arrow)
-      //  binding.noContactsPlaceholder2.setTextColor(getProperPrimaryColor())
-    //    binding.noContactsPlaceholder2.underlineText()
-     //   binding.suggestionsLabel.setTextColor(getProperPrimaryColor())
+
     }
 
     private fun initContacts() {
@@ -81,34 +76,10 @@ class NewConversationActivity : SimpleActivity() {
             filteredContacts.sortWith(compareBy { !it.name.startsWith(searchString, true) })
             setupAdapter(filteredContacts)
 
-            binding.newConversationConfirm.beVisibleIf(searchString.length > 2)
+
         }
 
-        binding.newConversationConfirm.applyColorFilter(getProperTextColor())
-        binding.newConversationConfirm.setOnClickListener {
-            val number = binding.newConversationAddress.value
-            if (isShortCodeWithLetters(number)) {
-                binding.newConversationAddress.setText("")
-                toast(R.string.invalid_short_code, length = Toast.LENGTH_LONG)
-                return@setOnClickListener
-            }
-            launchThreadActivity(number, number)
-        }
 
-        binding.noContactsPlaceholder2.setOnClickListener {
-            handlePermission(PERMISSION_READ_CONTACTS) {
-                if (it) {
-                    fetchContacts()
-                }
-            }
-        }
-
-       // val properPrimaryColor = getProperPrimaryColor()
-      //  binding.contactsLetterFastscroller.textColor = getProperTextColor().getColorStateList()
-     //   binding.contactsLetterFastscroller.pressedTextColor = properPrimaryColor
-        binding.contactsLetterFastscrollerThumb.setupWithFastScroller(binding.contactsLetterFastscroller)
-       // binding.contactsLetterFastscrollerThumb.textColor = properPrimaryColor.getContrastColor()
-       // binding.contactsLetterFastscrollerThumb.thumbColor = properPrimaryColor.getColorStateList()
     }
 
     private fun isThirdPartyIntent(): Boolean {
@@ -141,8 +112,6 @@ class NewConversationActivity : SimpleActivity() {
     private fun setupAdapter(contacts: ArrayList<SimpleContact>) {
         val hasContacts = contacts.isNotEmpty()
         binding.contactsList.beVisibleIf(hasContacts)
-        binding.noContactsPlaceholder.beVisibleIf(!hasContacts)
-        binding.noContactsPlaceholder2.beVisibleIf(!hasContacts && !hasPermission(PERMISSION_READ_CONTACTS))
 
         if (!hasContacts) {
             val placeholderText = if (hasPermission(PERMISSION_READ_CONTACTS)) {
@@ -151,7 +120,6 @@ class NewConversationActivity : SimpleActivity() {
                 com.simplemobiletools.commons.R.string.no_access_to_contacts
             }
 
-            binding.noContactsPlaceholder.text = getString(placeholderText)
         }
 
         val currAdapter = binding.contactsList.adapter
@@ -198,13 +166,11 @@ class NewConversationActivity : SimpleActivity() {
             privateContacts = MyContactsContentProvider.getSimpleContacts(this, privateCursor)
             val suggestions = getSuggestedContacts(privateContacts)
             runOnUiThread {
-                binding.suggestionsHolder.removeAllViews()
+
                 if (suggestions.isEmpty()) {
-                    binding.suggestionsLabel.beGone()
-                    binding.suggestionsScrollview.beGone()
+
                 } else {
-                    binding.suggestionsLabel.beVisible()
-                    binding.suggestionsScrollview.beVisible()
+
                     suggestions.forEach {
                         val contact = it
                         ItemSuggestedContactBinding.inflate(layoutInflater).apply {
@@ -212,8 +178,7 @@ class NewConversationActivity : SimpleActivity() {
                             suggestedContactName.setTextColor(getProperTextColor())
 
                             if (!isDestroyed) {
-                                SimpleContactsHelper(this@NewConversationActivity).loadContactImage(contact.photoUri, suggestedContactImage, contact.name)
-                                binding.suggestionsHolder.addView(root)
+                                SimpleContactsHelper(this@SearchConversationActivity).loadContactImage(contact.photoUri, suggestedContactImage, contact.name)
                                 root.setOnClickListener {
                                     launchThreadActivity(contact.phoneNumbers.first().normalizedNumber, contact.name)
                                 }
@@ -227,15 +192,7 @@ class NewConversationActivity : SimpleActivity() {
     }
 
     private fun setupLetterFastscroller(contacts: ArrayList<SimpleContact>) {
-        binding.contactsLetterFastscroller.setupWithRecyclerView(binding.contactsList, { position ->
-            try {
-                val name = contacts[position].name
-                val character = if (name.isNotEmpty()) name.substring(0, 1) else ""
-                FastScrollItemIndicator.Text(character.uppercase(Locale.getDefault()).normalizeString())
-            } catch (e: Exception) {
-                FastScrollItemIndicator.Text("")
-            }
-        })
+
     }
 
     private fun launchThreadActivity(phoneNumber: String, name: String) {

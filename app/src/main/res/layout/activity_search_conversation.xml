@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/back_icon"
+            android:id="@+id/backBtn"
+            android:layout_margin="@dimen/_10sdp"
+            android:padding="@dimen/_7sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/search_icon"
+            android:id="@+id/searchBtn"
+            android:padding="@dimen/_7sdp"
+            app:layout_constraintBottom_toBottomOf="@id/backBtn"
+            app:layout_constraintTop_toTopOf="@id/backBtn"
+            app:layout_constraintStart_toEndOf="@+id/backBtn"/>
+
+        <EditText
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/searchBtn"
+            android:id="@+id/new_conversation_address"
+            android:layout_width="0dp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_height="match_parent"
+            android:gravity="start|center"
+            android:background="@android:color/transparent"
+            android:hint="@string/add_contact_or_number"
+            android:textColorHint="@color/textGrayaaaaaa"
+            android:textColor="@color/textColor333333"
+            android:textSize="@dimen/big_text_size" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.simplemobiletools.commons.views.MyRecyclerView
+        android:id="@+id/contacts_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_weight="1"
+        android:layout_below="@+id/suggestions_scrollview"
+        android:clipToPadding="false"
+        android:layoutAnimation="@anim/layout_animation"
+        android:overScrollMode="ifContentScrolls"
+        android:scrollbars="none"
+        app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager" />
+
+</LinearLayout>
+

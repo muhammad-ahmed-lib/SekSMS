@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/new_conversation_coordinator"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/new_conversation_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/color_primary"
+        android:background="@color/white"
         app:title="@string/new_conversation"
         app:titleTextAppearance="@style/AppTheme.ActionBar.TitleTextStyle" />
 
@@ -19,7 +20,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize">
 
-        <com.simplemobiletools.commons.views.MyEditText
+        <EditText
             android:id="@+id/new_conversation_address"
             android:layout_width="match_parent"
             android:layout_height="@dimen/normal_icon_size"
@@ -30,6 +31,8 @@
             android:gravity="center_vertical"
             android:hint="@string/add_contact_or_number"
             android:inputType="textCapWords"
+            android:textColorHint="@color/textGrayaaaaaa"
+            android:textColor="@color/textColor333333"
             android:textSize="@dimen/big_text_size" />
 
         <ImageView

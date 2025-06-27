@@ -18,6 +18,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.example.myapplication.presentation.ui.RateUsFragment
 import com.simplemobiletools.commons.dialogs.PermissionRequiredDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.hideKeyboard
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.Release
@@ -41,10 +42,8 @@ import com.simplemobiletools.smsmessenger.models.Events
 import com.simplemobiletools.smsmessenger.models.Message
 import com.simplemobiletools.smsmessenger.models.SearchResult
 import com.simplemobiletools.smsmessenger.presentation.ui.adapters.GenericAdapter
-import com.simplemobiletools.smsmessenger.utils.TinyDB
-import com.simplemobiletools.smsmessenger.utils.loadImage
-import com.simplemobiletools.smsmessenger.utils.openWebLink
-import com.simplemobiletools.smsmessenger.utils.shareApp
+import com.simplemobiletools.smsmessenger.presentation.ui.screens.SearchConversationActivity
+import com.simplemobiletools.smsmessenger.utils.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -76,13 +75,18 @@ class MainActivity : BasicActivity() {
         binding.permissionBtn.setOnClickListener {
             requestSmsPermissions()
         }
-        updateMaterialActivityViews(
+      /*  updateMaterialActivityViews(
             mainCoordinatorLayout = null,
             nestedView = binding.rec,
             useTransparentNavigation = true,
             useTopSearchMenu = true
         )
+*/
 
+
+        binding.searchBtn.setOnClickListener {
+            openActivity<SearchConversationActivity>()
+        }
         checkPermissions()
 
         if (savedInstanceState == null) {

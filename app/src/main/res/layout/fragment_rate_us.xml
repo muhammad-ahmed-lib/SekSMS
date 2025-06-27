@@ -8,7 +8,7 @@
     android:gravity="center"
     android:background="@color/black"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.RateUsFragment">
+    tools:context="RateUsFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/_270sdp"
         android:layout_height="@dimen/_400sdp">

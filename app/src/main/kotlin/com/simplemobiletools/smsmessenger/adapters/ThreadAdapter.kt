@@ -340,8 +340,8 @@ class ThreadAdapter(
 
             threadMessageBody.apply {
                 background = AppCompatResources.getDrawable(activity, R.drawable.item_received_background)
-                setTextColor(textColor)
-                setLinkTextColor(activity.getProperPrimaryColor())
+              ///  setTextColor(textColor)
+               // setLinkTextColor(activity.getProperPrimaryColor())
             }
 
             if (!activity.isFinishing && !activity.isDestroyed) {
@@ -381,15 +381,15 @@ class ThreadAdapter(
                     addRule(RelativeLayout.ALIGN_PARENT_END)
                 }
 
-                background = AppCompatResources.getDrawable(activity, R.drawable.item_sent_background)
-                background.applyColorFilter(primaryColor)
-                setTextColor(contrastColor)
-                setLinkTextColor(contrastColor)
+             //   background = AppCompatResources.getDrawable(activity, R.drawable.item_sent_background)
+             //   background.applyColorFilter(primaryColor)
+             //   setTextColor(contrastColor)
+             //   setLinkTextColor(contrastColor)
 
                 if (message.isScheduled) {
                     typeface = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC)
                     val scheduledDrawable = AppCompatResources.getDrawable(activity, com.simplemobiletools.commons.R.drawable.ic_clock_vector)?.apply {
-                        applyColorFilter(contrastColor)
+                //        applyColorFilter(contrastColor)
                         val size = lineHeight
                         setBounds(0, 0, size, size)
                     }
@@ -513,7 +513,7 @@ class ThreadAdapter(
                 text = dateTime.date.formatDateOrTime(context, hideTimeAtOtherDays = false, showYearEvenIfCurrent = false)
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
             }
-            threadDateTime.setTextColor(textColor)
+            //threadDateTime.setTextColor(textColor)
 
             threadSimIcon.beVisibleIf(hasMultipleSIMCards)
             threadSimNumber.beVisibleIf(hasMultipleSIMCards)

@@ -12,6 +12,7 @@ import com.simplemobiletools.commons.extensions.getTextSize
 import com.simplemobiletools.commons.helpers.SimpleContactsHelper
 import com.simplemobiletools.commons.models.SimpleContact
 import com.simplemobiletools.commons.views.MyRecyclerView
+import com.simplemobiletools.smsmessenger.R
 import com.simplemobiletools.smsmessenger.activities.SimpleActivity
 
 class ContactsAdapter(
@@ -65,13 +66,13 @@ class ContactsAdapter(
         ItemContactWithNumberBinding.bind(view).apply {
             itemContactName.apply {
                 text = contact.name
-                setTextColor(textColor)
+                setTextColor(view.context.getColor(R.color.textColor333333))
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize * 1.2f)
             }
 
             itemContactNumber.apply {
                 text = TextUtils.join(", ", contact.phoneNumbers.map { it.normalizedNumber })
-                setTextColor(textColor)
+                setTextColor(view.context.getColor(R.color.textGrayaaaaaa))
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
             }
 

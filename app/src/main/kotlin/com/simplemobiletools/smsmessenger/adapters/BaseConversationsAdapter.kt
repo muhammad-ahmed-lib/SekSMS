@@ -114,13 +114,13 @@ abstract class BaseConversationsAdapter(
 
     private fun setupView(view: View, conversation: Conversation) {
         ItemConversationBinding.bind(view).apply {
-            root.setupViewBackground(activity)
+           // root.setupViewBackground(activity)
             val smsDraft = drafts[conversation.threadId]
             draftIndicator.beVisibleIf(smsDraft != null)
-            draftIndicator.setTextColor(properPrimaryColor)
+           // draftIndicator.setTextColor(properPrimaryColor)
 
             pinIndicator.beVisibleIf(activity.config.pinnedConversations.contains(conversation.threadId.toString()))
-            pinIndicator.applyColorFilter(textColor)
+          //  pinIndicator.applyColorFilter(textColor)
 
             conversationFrame.isSelected = selectedKeys.contains(conversation.hashCode())
 
