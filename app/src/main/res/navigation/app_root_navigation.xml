@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_root_navigation"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.simplemobiletools.smsmessenger.ui.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_LaungaugeSelectionFragment"
+            app:destination="@id/languageSelection" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/languageSelection"
+        android:name="com.simplemobiletools.smsmessenger.ui.LaungaugeSelection.LangugageSelectionFragment"
+        android:label="fragment_languageSelection"
+        tools:layout="@layout/fragment_langugage_selection">
+        <action
+            android:id="@+id/action_languageSelection_to_permissionFragment"
+            app:destination="@id/permissionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/onBoarding"
+        android:name="com.simplemobiletools.smsmessenger.ui.onBoarding.OnBoardingFragment"
+        android:label="fragment_onBoarding"
+        tools:layout="@layout/fragment_on_boarding" />
+
+    <fragment
+        android:id="@+id/permissionFragment"
+        android:name="com.simplemobiletools.smsmessenger.presentation.ui.screens.permission.PermisssionFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/permission_fragment">
+        <action
+            android:id="@+id/action_permissionFragment_to_OnboradingFragement"
+            app:destination="@id/onBoarding" />
+    </fragment>
+
+
+</navigation>

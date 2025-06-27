@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/message_holder"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/scheduled_message_holder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_marginEnd="@dimen/medium_margin"
+        android:background="@drawable/section_holder_stroke"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/thread_attachments_recyclerview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginBottom="@dimen/medium_margin"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/scheduled_message_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/scheduled_message_button"
+            android:layout_alignBottom="@+id/scheduled_message_button"
+            android:paddingStart="@dimen/medium_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:paddingEnd="@dimen/small_margin"
+            android:paddingBottom="@dimen/medium_margin"
+            android:src="@drawable/ic_clock_vector" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/scheduled_message_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_toStartOf="@+id/discard_scheduled_message"
+            android:layout_toEndOf="@+id/scheduled_message_icon"
+            android:background="@drawable/ripple_background"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/normal_icon_size"
+            android:paddingStart="@dimen/small_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:textSize="@dimen/middle_text_size"
+            tools:ignore="HardcodedText"
+            tools:text="Tomorrow at 6PM GMT +05:30" />
+
+        <ImageView
+            android:id="@+id/discard_scheduled_message"
+            android:layout_width="@dimen/normal_icon_size"
+            android:layout_height="@dimen/normal_icon_size"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
+            android:background="?selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cancel_schedule_send"
+            android:padding="@dimen/normal_margin"
+            android:src="@drawable/ic_cross_vector" />
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/thread_attachments_recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_margin"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/normal_margin"
+        android:paddingEnd="@dimen/normal_margin"
+        android:scrollbars="none"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/threadLay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_goneMarginTop="@dimen/medium_margin"
+        tools:itemCount="2"
+        tools:listitem="@layout/item_attachment_document_preview"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/thread_add_attachment"
+        android:layout_width="@dimen/normal_icon_size"
+        android:layout_height="@dimen/normal_icon_size"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:background="@drawable/circle_sh"
+        android:contentDescription="@string/attachment"
+        android:padding="@dimen/_10sdp"
+        android:src="@drawable/plus_br_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/threadLay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/threadLay" />
+    <LinearLayout
+        android:id="@+id/threadLay"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/_10sdp"
+        app:layout_constraintBottom_toTopOf="@+id/attachment_picker_divider"
+        android:background="@drawable/user_bg"
+        android:layout_marginEnd="@dimen/_8sdp"
+        app:layout_constraintEnd_toStartOf="@id/thread_select_sim_icon"
+        app:layout_constraintStart_toEndOf="@+id/thread_add_attachment"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/_35sdp">
+        <com.simplemobiletools.commons.views.MyEditText
+            android:id="@+id/thread_type_message"
+            android:layout_width="0dp"
+            android:textColor="@color/textColor333333"
+
+            android:layout_weight="1"
+            android:paddingStart="@dimen/_10sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginEnd="@dimen/small_margin"
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:hint="@string/message"
+            android:inputType="textCapSentences|textMultiLine"
+            android:minHeight="@dimen/normal_icon_size"
+        />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:src="@drawable/emoji_icon"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:padding="@dimen/_8sdp"
+            android:id="@+id/emojiBtn"/>
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/thread_select_sim_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.9"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:paddingStart="@dimen/medium_margin"
+        android:paddingTop="@dimen/normal_margin"
+        android:paddingEnd="@dimen/medium_margin"
+        android:paddingBottom="@dimen/normal_margin"
+        android:src="@drawable/ic_sim_vector"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/threadLay"
+        app:layout_constraintEnd_toStartOf="@id/thread_character_counter"
+        app:layout_constraintTop_toTopOf="@+id/threadLay"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/thread_select_sim_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/normal_text_size"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/thread_select_sim_icon"
+        app:layout_constraintEnd_toEndOf="@id/thread_select_sim_icon"
+        app:layout_constraintStart_toStartOf="@id/thread_select_sim_icon"
+        app:layout_constraintTop_toTopOf="@id/thread_select_sim_icon"
+        tools:text="1"
+        tools:textColor="@color/dark_grey"
+        tools:visibility="visible" />
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/thread_character_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingStart="@dimen/small_margin"
+        android:paddingEnd="@dimen/small_margin"
+        android:text="0"
+        android:textSize="@dimen/normal_text_size"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/threadLay"
+        app:layout_constraintEnd_toStartOf="@+id/thread_send_message"
+        app:layout_constraintTop_toTopOf="@+id/threadLay"
+        tools:ignore="HardcodedText"
+        tools:visibility="visible" />
+
+    <com.simplemobiletools.commons.views.MyButton
+        android:id="@+id/thread_send_message"
+        android:layout_width="@dimen/normal_icon_size"
+        android:layout_height="@dimen/normal_icon_size"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:background="@drawable/circle_sh"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingStart="@dimen/_2sdp"
+        android:clickable="false"
+        android:contentDescription="@string/ok"
+        android:drawableTop="@drawable/send_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/threadLay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/threadLay" />
+
+    <View
+        android:id="@+id/attachment_picker_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/divider_grey"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toTopOf="@id/attachment_picker_holder" />
+
+    <ScrollView
+        android:id="@+id/attachment_picker_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/small_margin"
+        android:overScrollMode="always"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible">
+
+        <include
+            android:id="@+id/attachment_picker"
+            layout="@layout/layout_attachment_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

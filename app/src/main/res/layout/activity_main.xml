@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:background="@color/white"
+    tools:context=".presentation.ui.screens.main.MainActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_15sdp"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/menu_line_icon"
+            android:id="@+id/menuBtn"
+            android:layout_margin="@dimen/_10sdp"
+            android:padding="@dimen/_7sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/menu_icon"
+            android:id="@+id/menu3DottedBtn"
+            android:layout_margin="@dimen/_10sdp"
+            android:padding="@dimen/_7sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/search_icon"
+            android:id="@+id/searchBtn"
+            android:padding="@dimen/_7sdp"
+            app:layout_constraintBottom_toBottomOf="@id/menu3DottedBtn"
+            app:layout_constraintTop_toTopOf="@id/menu3DottedBtn"
+            app:layout_constraintEnd_toStartOf="@+id/menu3DottedBtn"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/menu3DottedBtn"
+            app:layout_constraintBottom_toBottomOf="@id/menu3DottedBtn"
+            app:layout_constraintStart_toEndOf="@id/menuBtn"
+            app:layout_constraintEnd_toStartOf="@id/searchBtn"
+            android:layout_marginHorizontal="@dimen/_10sdp"/>
+
+        <com.simplemobiletools.commons.views.MyRecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/rec"
+            app:layout_constraintTop_toBottomOf="@id/menu3DottedBtn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <com.simplemobiletools.smsmessenger.helpers.MySearchMenussss
+            android:id="@+id/main_menu"
+            app:layout_constraintTop_toBottomOf="@id/menu3DottedBtn"
+            android:layout_marginTop="@dimen/_100sdp"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            />
+
+        <RelativeLayout
+            android:id="@+id/main_nested_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:visibility="gone"
+
+            android:scrollbars="none"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:id="@+id/main_coordinator_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/main_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/conversations_progress_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:indeterminate="true"
+                        android:visibility="gone"
+                        app:hideAnimationBehavior="outward"
+                        app:showAnimationBehavior="inward"
+                        app:showDelay="250"
+                        tools:visibility="visible" />
+
+                    <com.simplemobiletools.commons.views.MyTextView
+                        android:id="@+id/no_conversations_placeholder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/bigger_margin"
+                        android:alpha="0.8"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/activity_margin"
+                        android:paddingRight="@dimen/activity_margin"
+                        android:text="@string/no_conversations_found"
+                        android:textSize="@dimen/bigger_text_size"
+                        android:textStyle="italic"
+                        android:visibility="gone" />
+
+                    <com.simplemobiletools.commons.views.MyTextView
+                        android:id="@+id/no_conversations_placeholder_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/no_conversations_placeholder"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/ripple_all_corners"
+                        android:gravity="center"
+                        android:padding="@dimen/activity_margin"
+                        android:text="@string/start_conversation"
+                        android:textSize="@dimen/bigger_text_size"
+                        android:visibility="gone" />
+
+                    <com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
+                        android:id="@+id/conversations_fastscroller"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.simplemobiletools.commons.views.MyRecyclerView
+                            android:id="@+id/conversations_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:clipToPadding="false"
+                            android:layoutAnimation="@anim/layout_animation"
+                            android:overScrollMode="ifContentScrolls"
+                            android:scrollbars="none"
+                            app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager" />
+
+                    </com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>
+                </RelativeLayout>
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+            <RelativeLayout
+                android:id="@+id/search_holder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0"
+                android:visibility="gone">
+
+                <com.simplemobiletools.commons.views.MyTextView
+                    android:id="@+id/search_placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/activity_margin"
+                    android:alpha="0.8"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/activity_margin"
+                    android:paddingEnd="@dimen/activity_margin"
+                    android:text="@string/no_items_found"
+                    android:textSize="@dimen/bigger_text_size"
+                    android:textStyle="italic" />
+
+                <com.simplemobiletools.commons.views.MyTextView
+                    android:id="@+id/search_placeholder_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/search_placeholder"
+                    android:layout_centerHorizontal="true"
+                    android:alpha="0.8"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/activity_margin"
+                    android:paddingTop="@dimen/medium_margin"
+                    android:paddingEnd="@dimen/activity_margin"
+                    android:paddingBottom="@dimen/medium_margin"
+                    android:text="@string/type_2_characters"
+                    android:textSize="@dimen/bigger_text_size"
+                    android:textStyle="italic" />
+
+                <com.simplemobiletools.commons.views.MyRecyclerView
+                    android:id="@+id/search_results_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:scrollbars="vertical"
+                    app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/conversations_fab"
+            android:layout_width="@dimen/_40sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:roundPercent="0.5"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:background="@color/blueCommon0874f0"
+            android:layout_gravity="bottom|end"
+            android:padding="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:src="@drawable/plus_icon" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_64sdp"
+            android:id="@+id/permissionLayout"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:background="@drawable/permision_set_bg"
+            app:layout_constraintTop_toBottomOf="@id/menu3DottedBtn">
+            <ImageView
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:src="@drawable/app_ic"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/logo"
+                android:layout_marginStart="@dimen/_10sdp"/>
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:src="@drawable/cross_icon"
+                app:roundPercent="1"
+                android:background="@color/blueCommon0874f0"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/crossDefBtn"
+                android:layout_marginStart="@dimen/_10sdp"/>
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.50"
+                android:id="@+id/logoGc"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/outfit_medium"
+                android:textColor="@color/textColor333333"
+                android:textSize="@dimen/_12ssp"
+                android:layout_marginStart="@dimen/_8sdp"
+                app:layout_constraintStart_toEndOf="@id/logo"
+                app:layout_constraintBottom_toTopOf="@id/logoGc"
+                android:text="@string/set_as_default_sms_app"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:fontFamily="@font/outfit"
+                android:text="@string/set_as_default_to_protect_your_messages"
+                android:textColor="@color/textColor333333"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintStart_toEndOf="@id/logo"
+                app:layout_constraintTop_toBottomOf="@id/logoGc" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/permissionBtn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:cardBackgroundColor="@color/blueCommon0874f0"
+                app:cardCornerRadius="@dimen/_6sdp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/outfit"
+                    android:textSize="@dimen/_10ssp"
+                    android:paddingHorizontal="@dimen/_6sdp"
+                    android:paddingVertical="@dimen/_5sdp"
+                    android:textColor="@color/white"
+                    android:text="@string/set_now"/>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start">
+        <include layout="@layout/include_drawer_layout"
+            android:id="@+id/drawerInclude"
+            />
+    </com.google.android.material.navigation.NavigationView>
+</androidx.drawerlayout.widget.DrawerLayout>
+
+
