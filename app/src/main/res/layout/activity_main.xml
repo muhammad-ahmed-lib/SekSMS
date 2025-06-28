@@ -39,12 +39,24 @@
             app:layout_constraintBottom_toBottomOf="@id/menu3DottedBtn"
             app:layout_constraintTop_toTopOf="@id/menu3DottedBtn"
             app:layout_constraintEnd_toStartOf="@+id/menu3DottedBtn"/>
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/menu3DottedBtn"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/topRec"
+            android:layout_marginStart="@dimen/_8sdp"
+            tools:listitem="@layout/homt_top_rec_item"/>
         <com.simplemobiletools.commons.views.MyRecyclerView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/rec"
-            app:layout_constraintTop_toBottomOf="@id/menu3DottedBtn"
+            app:layout_constraintTop_toBottomOf="@id/topRec"
             app:layout_constraintBottom_toBottomOf="parent"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -225,6 +237,8 @@
                 android:layout_height="@dimen/_15sdp"
                 android:src="@drawable/cross_icon"
                 app:roundPercent="1"
+                android:padding="@dimen/_5sdp"
+                app:tint="@color/white"
                 android:background="@color/blueCommon0874f0"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

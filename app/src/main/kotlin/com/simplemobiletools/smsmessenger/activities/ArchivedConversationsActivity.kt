@@ -14,6 +14,7 @@ import com.simplemobiletools.smsmessenger.activities.root.appstate.BasicActivity
 import com.simplemobiletools.smsmessenger.adapters.ArchivedConversationsAdapter
 import com.simplemobiletools.smsmessenger.databinding.ActivityArchivedConversationsBinding
 import com.simplemobiletools.smsmessenger.databinding.DrawerRecItemBinding
+import com.simplemobiletools.smsmessenger.databinding.HomtTopRecItemBinding
 import com.simplemobiletools.smsmessenger.extensions.*
 import com.simplemobiletools.smsmessenger.helpers.*
 import com.simplemobiletools.smsmessenger.models.Conversation
@@ -38,6 +39,7 @@ class ArchivedConversationsActivity : BasicActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupOptionsMenu()
+
 
 
 

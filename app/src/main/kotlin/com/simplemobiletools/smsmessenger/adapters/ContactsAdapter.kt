@@ -14,10 +14,16 @@ import com.simplemobiletools.commons.models.SimpleContact
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.smsmessenger.R
 import com.simplemobiletools.smsmessenger.activities.SimpleActivity
+import com.simplemobiletools.smsmessenger.activities.root.appstate.BaseSimpleCopy
+import com.simplemobiletools.smsmessenger.activities.root.appstate.MyRecyclerViewAdapterCopyBaseSImpleCopy
+import com.simplemobiletools.smsmessenger.databinding.ContactsRecItemBinding
 
 class ContactsAdapter(
-    activity: SimpleActivity, var contacts: ArrayList<SimpleContact>, recyclerView: MyRecyclerView, itemClick: (Any) -> Unit
-) : MyRecyclerViewAdapter(activity, recyclerView, itemClick) {
+    activity: BaseSimpleCopy,
+    var contacts: ArrayList<SimpleContact>,
+    recyclerView: MyRecyclerView,
+    itemClick: (Any) -> Unit
+) : MyRecyclerViewAdapterCopyBaseSImpleCopy(activity, recyclerView, itemClick) {
     private var fontSize = activity.getTextSize()
 
     override fun getActionMenuId() = 0
@@ -39,7 +45,7 @@ class ContactsAdapter(
     override fun onActionModeDestroyed() {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemContactWithNumberBinding.inflate(layoutInflater, parent, false)
+        val binding = ContactsRecItemBinding.inflate(layoutInflater, parent, false)
         return createViewHolder(binding.root)
     }
 
@@ -63,28 +69,28 @@ class ContactsAdapter(
     }
 
     private fun setupView(view: View, contact: SimpleContact) {
-        ItemContactWithNumberBinding.bind(view).apply {
-            itemContactName.apply {
+        ContactsRecItemBinding.bind(view).apply {
+            nameTv.apply {
                 text = contact.name
-                setTextColor(view.context.getColor(R.color.textColor333333))
-                setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize * 1.2f)
+             //   setTextColor(view.context.getColor(R.color.textColor333333))
+             //   setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize * 1.1f)
             }
 
-            itemContactNumber.apply {
+            phoneTv.apply {
                 text = TextUtils.join(", ", contact.phoneNumbers.map { it.normalizedNumber })
-                setTextColor(view.context.getColor(R.color.textGrayaaaaaa))
-                setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+              //  setTextColor(view.context.getColor(R.color.textGrayaaaaaa))
+               // setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
             }
 
-            SimpleContactsHelper(activity).loadContactImage(contact.photoUri, itemContactImage, contact.name)
+            SimpleContactsHelper(activity).loadContactImage(contact.photoUri, contactImg, contact.name)
         }
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
         if (!activity.isDestroyed && !activity.isFinishing) {
-            val binding = ItemContactWithNumberBinding.bind(holder.itemView)
-            Glide.with(activity).clear(binding.itemContactImage)
+            val binding = ContactsRecItemBinding.bind(holder.itemView)
+            Glide.with(activity).clear(binding.contactImg)
         }
     }
 }

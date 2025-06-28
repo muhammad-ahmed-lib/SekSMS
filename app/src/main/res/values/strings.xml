@@ -156,6 +156,8 @@
     <string name="share_via">Share Via</string>
     <string name="share_app_subject">Share App\n</string>
     <string name="share_app_message">Hey Check Out this amazing app at</string>
+    <string name="top_contacts">Top contacts</string>
+    <string name="type_a_name_phone_number_or_email">Type a name, phone number or email</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

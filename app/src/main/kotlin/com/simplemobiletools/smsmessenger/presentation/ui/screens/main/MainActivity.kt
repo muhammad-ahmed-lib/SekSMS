@@ -6,12 +6,15 @@ import android.app.role.RoleManager
 import android.content.Intent
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
+import android.graphics.Color
 import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
+import android.os.Build
 import android.os.Bundle
 import android.provider.Telephony
 import android.text.TextUtils
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.PopupMenu
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -35,6 +38,7 @@ import com.simplemobiletools.smsmessenger.adapters.ConversationsAdapter
 import com.simplemobiletools.smsmessenger.adapters.SearchResultsAdapter
 import com.simplemobiletools.smsmessenger.databinding.ActivityMainBinding
 import com.simplemobiletools.smsmessenger.databinding.DrawerRecItemBinding
+import com.simplemobiletools.smsmessenger.databinding.HomtTopRecItemBinding
 import com.simplemobiletools.smsmessenger.extensions.*
 import com.simplemobiletools.smsmessenger.helpers.*
 import com.simplemobiletools.smsmessenger.models.Conversation
@@ -57,7 +61,7 @@ class MainActivity : BasicActivity() {
     private var bus: EventBus? = null
     private var wasProtectionHandled = false
     private var permissionsGranted = false
-
+    lateinit var adapterTop:GenericAdapter<DrawerModel,HomtTopRecItemBinding>
     private val binding by viewBinding(ActivityMainBinding::inflate)
     lateinit var drawerLayout: DrawerLayout
     lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
@@ -75,14 +79,87 @@ class MainActivity : BasicActivity() {
         binding.permissionBtn.setOnClickListener {
             requestSmsPermissions()
         }
-      /*  updateMaterialActivityViews(
-            mainCoordinatorLayout = null,
-            nestedView = binding.rec,
-            useTransparentNavigation = true,
-            useTopSearchMenu = true
-        )
-*/
 
+
+        var isSelected="All"
+
+        val list= listOf(
+            DrawerModel(
+                title = "All",
+                icon = R.drawable.share_icon
+            ),
+            DrawerModel(
+                title = "Personal",
+                icon = R.drawable.rate_us_icon
+            ),
+            DrawerModel(
+                title = "OTP",
+                icon = R.drawable.private_chat_icon
+            ),
+            DrawerModel(
+                title = "Transaction",
+                icon = R.drawable.private_chat_icon
+            ),
+            DrawerModel(
+                title = "Offer",
+                icon = R.drawable.private_chat_icon
+            )
+        )
+        adapterTop = GenericAdapter<DrawerModel, HomtTopRecItemBinding>(
+            items = list,
+            bindingInflater = HomtTopRecItemBinding::inflate
+        ) { binding, item ->  // Binding lambda
+            binding.apply {
+                binding.titleTv.text=item.title
+                root.setOnClickListener {
+                    isSelected=item.title
+                    adapterTop.notifyDataSetChanged()
+                }
+                if (isSelected==item.title){
+                    binding.titleTv.setTextColor(Color.WHITE)
+                    binding.titleTv.setBackgroundResource(R.drawable.selected_home_rec_top_bg)
+                }else{
+                    binding.titleTv.setTextColor(getColor(R.color.textColor333333))
+                    binding.titleTv.setBackgroundResource(R.drawable.unselected_home_rec_top_bg)
+                }
+            }
+        }
+        binding.crossDefBtn.setOnClickListener{
+            binding.permissionLayout.beGone()
+        }
+        binding.topRec.adapter=adapterTop
+
+
+        /*  updateMaterialActivityViews(
+              mainCoordinatorLayout = null,
+              nestedView = binding.rec,
+              useTransparentNavigation = true,
+              useTopSearchMenu = true
+          )
+  */
+
+
+        // In your button click listener
+      /*  binding.menu3DottedBtn.setOnClickListener { view ->
+            val popupMenu = PopupMenu(this, view) // Anchor to the clicked view
+            popupMenu.menuInflater.inflate(R.menu.cab_conversations, popupMenu.menu)
+
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                  *//*  R.id.menu_item1 -> {
+                        // Handle item 1 click
+                        true
+                    }
+                    R.id.menu_item2 -> {
+                        // Handle item 2 click
+                        true
+                    }*//*
+                    else -> false
+                }
+            }
+
+            popupMenu.show()
+        }*/
 
         binding.searchBtn.setOnClickListener {
             openActivity<SearchConversationActivity>()
@@ -246,8 +323,11 @@ class MainActivity : BasicActivity() {
         super.onResume()
         updateMenuColors()
         refreshMenuItems()
+        if (isDefaultSmsApp()) binding.topRec.beVisible() else binding.topRec.beGone()
 
         if (permissionsGranted) {
+            if (isDefaultSmsApp()) binding.topRec.beVisible() else binding.topRec.beGone()
+
             getOrCreateConversationsAdapter().apply {
                 if (storedTextColor != getProperTextColor()) {
                     updateTextColor(getProperTextColor())
@@ -288,6 +368,15 @@ class MainActivity : BasicActivity() {
             binding.mainMenu.closeSearch()
         } else {
             super.onBackPressed()
+        }
+    }
+
+    private fun isDefaultSmsApp(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val roleManager = getSystemService(RoleManager::class.java)
+            roleManager?.isRoleHeld(RoleManager.ROLE_SMS) == true
+        } else {
+            Telephony.Sms.getDefaultSmsPackage(this) == packageName
         }
     }
 

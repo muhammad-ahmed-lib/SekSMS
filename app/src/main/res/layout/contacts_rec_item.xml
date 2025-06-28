@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_marginHorizontal="@dimen/_10sdp"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:layout_height="wrap_content">
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:layout_width="@dimen/_37sdp"
+        android:layout_height="@dimen/_37sdp"
+        app:roundPercent="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@color/ic_launcher_background"
+        android:id="@+id/contactImg"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.50"
+        android:id="@+id/gC"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:background="@android:color/transparent"
+        android:gravity="start|center"
+        android:id="@+id/nameTv"
+        android:fontFamily="@font/outfit_medium"
+        android:text="New conversation"
+        android:textColor="@color/textColor333333"
+        android:textColorHint="@color/textGrayaaaaaa"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/contactImg"
+        app:layout_constraintBottom_toTopOf="@id/gC" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:background="@android:color/transparent"
+        android:gravity="start|center"
+        android:text="New conversation"
+        android:id="@+id/phoneTv"
+        android:fontFamily="@font/outfit"
+        android:textFontWeight="300"
+        android:textColor="@color/textGrayaaaaaa"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/contactImg"
+        app:layout_constraintTop_toBottomOf="@id/gC" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,64 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/new_conversation_coordinator"
     android:layout_width="match_parent"
     android:background="@color/white"
+    android:orientation="vertical"
     android:layout_height="match_parent">
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/new_conversation_toolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
-        app:title="@string/new_conversation"
-        app:titleTextAppearance="@style/AppTheme.ActionBar.TitleTextStyle" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:padding="@dimen/_7sdp"
+            android:src="@drawable/back_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@android:color/transparent"
+            android:gravity="start|center"
+            android:text="New conversation"
+            android:textColor="@color/textColor333333"
+            android:textColorHint="@color/textGrayaaaaaa"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/backBtn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
         android:id="@+id/new_conversation_holder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize">
-
-        <EditText
-            android:id="@+id/new_conversation_address"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:id="@+id/l"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/normal_icon_size"
-            android:layout_marginStart="@dimen/activity_margin"
-            android:layout_marginEnd="@dimen/activity_margin"
-            android:layout_toStartOf="@+id/new_conversation_confirm"
-            android:background="@android:color/transparent"
-            android:gravity="center_vertical"
-            android:hint="@string/add_contact_or_number"
-            android:inputType="textCapWords"
-            android:textColorHint="@color/textGrayaaaaaa"
-            android:textColor="@color/textColor333333"
-            android:textSize="@dimen/big_text_size" />
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start|center"
+                android:text="To"
+                android:fontFamily="@font/outfit"
+                android:textColor="@color/textColor333333"
+                android:textSize="@dimen/_14ssp"
+                />
+            <EditText
+                android:id="@+id/new_conversation_address"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_height="@dimen/normal_icon_size"
+                android:layout_toStartOf="@+id/new_conversation_confirm"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:hint="@string/type_a_name_phone_number_or_email"
+                android:inputType="textCapWords"
+                android:textColorHint="@color/textGrayaaaaaa"
+                android:textColor="@color/textColor333333"
+                android:textSize="@dimen/_12ssp" />
+            <ImageView
+                android:id="@+id/crossBtn"
+                android:visibility="gone"
+                android:padding="@dimen/_3sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/cross_icon" />
+            <ImageView
+                android:id="@+id/keyBoardBtn"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:padding="@dimen/_3sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/keyboard_icon" />
 
-        <ImageView
-            android:id="@+id/new_conversation_confirm"
-            android:layout_width="@dimen/normal_icon_size"
-            android:layout_height="@dimen/normal_icon_size"
-            android:layout_alignTop="@+id/new_conversation_address"
-            android:layout_alignBottom="@+id/new_conversation_address"
-            android:layout_alignParentEnd="true"
-            android:background="?selectableItemBackgroundBorderless"
-            android:padding="@dimen/medium_margin"
-            android:src="@drawable/ic_check_vector"
-            android:visibility="gone" />
-
+        </LinearLayout>
         <ImageView
             android:id="@+id/add_contact_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
-            android:layout_below="@+id/new_conversation_address"
+            android:layout_below="@+id/l"
             android:background="@color/divider_grey" />
 
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/no_contacts_placeholder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/suggestions_scrollview"
+            android:layout_below="@+id/add_contact_divider"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/bigger_margin"
             android:alpha="0.8"
@@ -83,41 +129,22 @@
             android:textSize="@dimen/bigger_text_size"
             android:visibility="gone" />
 
-        <com.simplemobiletools.commons.views.MyTextView
+        <ImageView
             android:id="@+id/suggestions_label"
-            style="@style/MaterialSectionLabelStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_below="@+id/add_contact_divider"
             android:layout_marginStart="@dimen/activity_margin"
             android:layout_marginBottom="@dimen/medium_margin"
-            android:text="@string/suggestions"
-            android:textSize="@dimen/normal_text_size" />
+             android:src="@drawable/yellow_heart" />
 
-        <HorizontalScrollView
-            android:id="@+id/suggestions_scrollview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/suggestions_label"
-            android:layout_marginBottom="@dimen/medium_margin"
-            android:overScrollMode="never"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:id="@+id/suggestions_holder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:divider="@drawable/linear_layout_horizontal_divider"
-                android:orientation="horizontal"
-                android:showDividers="middle" />
-
-        </HorizontalScrollView>
 
         <com.simplemobiletools.commons.views.MyRecyclerView
             android:id="@+id/contacts_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/suggestions_scrollview"
+            android:layout_below="@+id/suggestions_label"
             android:clipToPadding="false"
             android:layoutAnimation="@anim/layout_animation"
             android:overScrollMode="ifContentScrolls"
@@ -143,4 +170,5 @@
             android:layout_toStartOf="@+id/contacts_letter_fastscroller" />
 
     </RelativeLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
+

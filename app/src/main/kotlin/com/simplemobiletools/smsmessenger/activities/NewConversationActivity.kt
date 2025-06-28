@@ -35,13 +35,27 @@ class NewConversationActivity : SimpleActivity() {
         setContentView(binding.root)
         title = getString(R.string.new_conversation)
         updateTextColors(binding.newConversationHolder)
+        window.statusBarColor= getColor(R.color.white)
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
+        binding.crossBtn.setOnClickListener {
+            binding.newConversationAddress.setText("")
+        }
+        binding.newConversationAddress.onTextChangeListener {
+            if(it.toString().isNotEmpty()){
+                binding.crossBtn.beVisible()
+            }else{
+                binding.crossBtn.beGone()
+            }
+        }
 
-      /*  updateMaterialActivityViews(
-            mainCoordinatorLayout = binding.newConversationCoordinator,
-            nestedView = binding.contactsList,
-            useTransparentNavigation = true,
-            useTopSearchMenu = false
-        )*/
+        /*  updateMaterialActivityViews(
+              mainCoordinatorLayout = binding.newConversationCoordinator,
+              nestedView = binding.contactsList,
+              useTransparentNavigation = true,
+              useTopSearchMenu = false
+          )*/
       //  setupMaterialScrollListener(scrollingView = binding.contactsList, toolbar = binding.newConversationToolbar)
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
@@ -55,7 +69,6 @@ class NewConversationActivity : SimpleActivity() {
 
     override fun onResume() {
         super.onResume()
-        setupToolbar(binding.newConversationToolbar, NavigationIcon.Arrow)
       //  binding.noContactsPlaceholder2.setTextColor(getProperPrimaryColor())
     //    binding.noContactsPlaceholder2.underlineText()
      //   binding.suggestionsLabel.setTextColor(getProperPrimaryColor())
@@ -81,10 +94,10 @@ class NewConversationActivity : SimpleActivity() {
             filteredContacts.sortWith(compareBy { !it.name.startsWith(searchString, true) })
             setupAdapter(filteredContacts)
 
-            binding.newConversationConfirm.beVisibleIf(searchString.length > 2)
+          //  binding.newConversationConfirm.beVisibleIf(searchString.length > 2)
         }
 
-        binding.newConversationConfirm.applyColorFilter(getProperTextColor())
+      /*  binding.newConversationConfirm.applyColorFilter(getProperTextColor())
         binding.newConversationConfirm.setOnClickListener {
             val number = binding.newConversationAddress.value
             if (isShortCodeWithLetters(number)) {
@@ -93,7 +106,7 @@ class NewConversationActivity : SimpleActivity() {
                 return@setOnClickListener
             }
             launchThreadActivity(number, number)
-        }
+        }*/
 
         binding.noContactsPlaceholder2.setOnClickListener {
             handlePermission(PERMISSION_READ_CONTACTS) {
@@ -193,7 +206,7 @@ class NewConversationActivity : SimpleActivity() {
     }
 
     private fun fillSuggestedContacts(callback: () -> Unit) {
-        val privateCursor = getMyContactsCursor(false, true)
+       /* val privateCursor = getMyContactsCursor(false, true)
         ensureBackgroundThread {
             privateContacts = MyContactsContentProvider.getSimpleContacts(this, privateCursor)
             val suggestions = getSuggestedContacts(privateContacts)
@@ -209,7 +222,6 @@ class NewConversationActivity : SimpleActivity() {
                         val contact = it
                         ItemSuggestedContactBinding.inflate(layoutInflater).apply {
                             suggestedContactName.text = contact.name
-                            suggestedContactName.setTextColor(getProperTextColor())
 
                             if (!isDestroyed) {
                                 SimpleContactsHelper(this@NewConversationActivity).loadContactImage(contact.photoUri, suggestedContactImage, contact.name)
@@ -223,7 +235,7 @@ class NewConversationActivity : SimpleActivity() {
                 }
                 callback()
             }
-        }
+        }*/
     }
 
     private fun setupLetterFastscroller(contacts: ArrayList<SimpleContact>) {

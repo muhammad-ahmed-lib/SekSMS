@@ -52,17 +52,9 @@ android {
         }
     }
 
-    flavorDimensions.add("variants")
-    productFlavors {
-        register("core")
-        register("fdroid")
-        register("prepaid")
-    }
-
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
     }
-
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
@@ -97,7 +89,6 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
 
-    // Compose
     implementation(platform("androidx.compose:compose-bom:2023.06.01"))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
