@@ -46,6 +46,12 @@
             android:exported="false"
             android:theme="@style/SplashTheme" />
 
+
+        <activity
+            android:name=".presentation.ui.screens.SettingsActivity"
+            android:exported="false"
+            android:theme="@style/SplashTheme" />
+
         <activity
             android:name=".presentation.ui.screens.main.MainActivity"
             android:configChanges="orientation"

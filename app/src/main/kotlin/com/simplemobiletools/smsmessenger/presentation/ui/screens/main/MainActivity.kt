@@ -47,6 +47,7 @@ import com.simplemobiletools.smsmessenger.models.Message
 import com.simplemobiletools.smsmessenger.models.SearchResult
 import com.simplemobiletools.smsmessenger.presentation.ui.adapters.GenericAdapter
 import com.simplemobiletools.smsmessenger.presentation.ui.screens.SearchConversationActivity
+import com.simplemobiletools.smsmessenger.presentation.ui.screens.SettingsModel
 import com.simplemobiletools.smsmessenger.utils.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -274,6 +275,7 @@ class MainActivity : BasicActivity() {
                 root.setOnClickListener {
                     when(item.icon){
                         R.drawable.archived_icon-> launchArchivedConversations()
+                        R.drawable.settings_icon->  openActivity<com.simplemobiletools.smsmessenger.presentation.ui.screens.SettingsActivity>()
                     }
                 }
             }
